@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-
+import logging
 import spacy
 
 app = Flask(__name__)
@@ -11,6 +11,13 @@ if ENV == 'dev':
 else:
     app.debug = False
 
+logger = logging.getLogger(__name__)
+
+@app.after_request
+def log_request(response):
+    logger.info(f'Request {request.method} {request.url} {request.json}')
+    logger.info(f'Response {response.status_code} {response.data}')
+    return response
 
 # Load the en_core_sci_lg model
 nlp_ss = spacy.load("en_core_sci_lg")
@@ -75,7 +82,7 @@ def similarity_for_spacy(row, response, ms):
     x = 0
     return x
 
-@app.route('/compute-ai-score-physics')
+@app.route('/compute-ai-score-physics', methods=["POST"])
 def compute_ai_score():
     body = request.get_json()
     marking_scheme = body["markingScheme"]
