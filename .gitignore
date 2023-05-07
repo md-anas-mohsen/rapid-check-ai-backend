@@ -1,0 +1,43 @@
+# Python and Flask
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+*.db
+*.sqlite
+
+# Virtual environment
+venv/
+
+# IDE and text editor files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Log files
+logs/
+
+# Compiled files
+*.class
+*.war
+*.ear
+*.jar
+*.pyc
+*.pyo
+*.dll
+*.exe
+*.o
+*.so
+*.a
+*.lib
+*.obj
+
+# OS generated files
+Thumbs.db
+.DS_Store
