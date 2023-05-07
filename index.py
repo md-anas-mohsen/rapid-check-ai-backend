@@ -75,7 +75,7 @@ def similarity_for_spacy(row, response, ms):
     x = 0
     return x
 
-@app.route('/compute-ai-score')
+@app.route('/compute-ai-score-physics')
 def compute_ai_score():
     body = request.get_json()
     marking_scheme = body["markingScheme"]
