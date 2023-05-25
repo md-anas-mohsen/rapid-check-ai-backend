@@ -1,0 +1,25 @@
+name: Deploy to cloud
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: DEVELOPMENT
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Connect to VM and execute commands
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_VM_USER }}@${{ secrets.SSH_VM_IP }} "cd ./rapid-check-ai-backend && git pull && cd .. && docker compose down -v && docker compose up -d"
